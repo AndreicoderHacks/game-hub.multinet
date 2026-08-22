@@ -34,21 +34,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Compile Pong (DS)
+      - name: Compile Pong (DS, networked)
         shell: bash
         run: |
           export DEVKITARM=/opt/devkitpro/devkitARM
+          export PATH="$DEVKITARM/bin:$PATH"
           mkdir -p build/nds
-          arm-none-eabi-gcc -c core/pong.c -I core -o build/nds/pong.o \
-            -mthumb -mthumb-interwork -O2
-          arm-none-eabi-gcc -c platform_nds/main.c -I core \
+          arm-none-eabi-gcc -c platform_nds_net/main.c -I core \
             -I/opt/devkitpro/libnds/include -o build/nds/main.o \
             -mthumb -mthumb-interwork -O2
-          arm-none-eabi-gcc build/nds/pong.o build/nds/main.o \
-            -specs=ds_arm9.specs -L/opt/devkitpro/libnds/lib -lnds9 \
+          arm-none-eabi-gcc build/nds/main.o \
+            -specs=ds_arm9.specs -L/opt/devkitpro/libnds/lib -ldswifi9 -lnds9 \
             -o build/nds/game-hub.elf
           arm-none-eabi-objcopy -O binary build/nds/game-hub.elf build/nds/game-hub.bin
-          ndstool -c dist_gamehub.nds -9 build/nds/game-hub.bin -b icon.bmp "Game Hub;Pong;v0.1"
+          ndstool -c dist_gamehub.nds -9 build/nds/game-hub.bin -b icon.bmp "Game Hub;Pong Net;v0.1"
         continue-on-error: true
 
       - name: Upload NDS build
