@@ -41,7 +41,7 @@ jobs:
           export PATH="$DEVKITARM/bin:$PATH"
           mkdir -p build/nds
           arm-none-eabi-gcc -c platform_nds_net/main.c -I core \
-            -I/opt/devkitpro/libnds/include -o build/nds/main.o \
+            -I/opt/devkitpro/libnds/include -DARM9 -o build/nds/main.o \
             -mthumb -mthumb-interwork -O2
           arm-none-eabi-gcc build/nds/main.o \
             -specs=ds_arm9.specs -L/opt/devkitpro/libnds/lib -ldswifi9 -lnds9 \
