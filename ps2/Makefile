@@ -2,9 +2,9 @@ EE_BIN = pong_ps2.elf
 EE_OBJS = main.o pong.o \
           netman_irx.o smap_irx.o ps2ip_irx.o
 
-EE_LIBS = -lgskit -ldmakit -lpad -lps2ip -lnetman -lc
+EE_LIBS = -L$(GSKIT)/lib -lgskit -ldmakit -lpad -lps2ip -lnetman -lc
 
-EE_INCS = -I$(PS2SDK)/ee/include -I$(PS2SDK)/common/include -I..
+EE_INCS = -I$(PS2SDK)/ee/include -I$(PS2SDK)/common/include -I$(GSKIT)/include -I..
 
 all: $(EE_BIN)
 
