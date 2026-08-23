@@ -1,3 +1,4 @@
+#include <sys/ioctl.h>
 /* Hub PS2 (gsKit) - deocamdata doar Pong, ca si partea de PC.
  *
  * ATENTIE: partea de init retea (blocul "network init" de mai jos) e
@@ -52,7 +53,7 @@ static void network_init(void)
     SifExecModuleBuffer(smap_irx, size_smap_irx, 0, NULL, NULL);
     SifExecModuleBuffer(ps2ip_irx, size_ps2ip_irx, 0, NULL, NULL);
 
-    ps2ip_init();
+    ps2ipInit();
 
     /* DHCP - asteptam sa primim IP de la router.
        Daca routerul nu are DHCP, aici trebuie IP static (vezi ps2ip docs). */
@@ -105,7 +106,6 @@ static void render_pong(const PongState *s)
 
     gsKit_queue_exec(gsGlobal);
     gsKit_finish();
-    gsKit_flip(gsGlobal);
     gsKit_sync_flip(gsGlobal);
 }
 
@@ -179,7 +179,7 @@ int main(int argc, char **argv)
                 memset(&dst, 0, sizeof(dst));
                 dst.sin_family = AF_INET;
                 dst.sin_port = htons(HUB_NET_PORT);
-                inet_aton(peer_ip, &dst.sin_addr);
+                dst.sin_addr.s_addr = inet_addr(peer_ip);
                 lwip_sendto(sock, &out, sizeof(out), 0,
                     (struct sockaddr *)&dst, sizeof(dst));
 
