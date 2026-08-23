@@ -1,0 +1,39 @@
+name: build
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build-ps2:
+    runs-on: ubuntu-latest
+    container: ps2dev/ps2dev:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build PS2 ELF
+        run: |
+          cd ps2
+          make
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pong_ps2
+          path: ps2/pong_ps2.elf
+
+  build-pc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install deps
+        run: sudo apt-get update && sudo apt-get install -y libsdl2-dev cmake
+
+      - name: Configure
+        run: cmake -S pc -B build
+
+      - name: Build
+        run: cmake --build build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pong_pc
+          path: build/pong_pc
