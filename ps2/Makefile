@@ -27,5 +27,5 @@ ps2ip_irx.o: $(PS2SDK)/iop/irx/ps2ip.irx
 clean:
 	rm -f $(EE_BIN) *.o *_irx.c
 
-include $(PS2SDK)/samples/Makefile.pkg.eeglobal
+include $(PS2SDK)/samples/Makefile.pref
 include $(PS2SDK)/samples/Makefile.eeglobal
