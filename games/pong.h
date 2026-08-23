@@ -1,3 +1,4 @@
+#ifndef PONG_H
 #define PONG_H
 
 /* Logica jocului e complet separată de randare / input / rețea.
@@ -12,7 +13,6 @@
 #define PONG_PADDLE_SPEED  0.9f   /* unitati normalizate / secunda */
 #define PONG_BALL_SPEED    0.6f
 #define PONG_WIN_SCORE     5
-#ifndef PONG_H
 
 typedef struct {
     float ball_x, ball_y;
