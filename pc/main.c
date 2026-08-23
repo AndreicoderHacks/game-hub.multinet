@@ -13,8 +13,8 @@
 #include <stdlib.h>
 
 #include "net_pc.h"
-#include "../common/net_proto.h"
-#include "../games/pong.h"
+#include "common/net_proto.h"
+#include "games/pong.h"
 
 #define WIN_W 640
 #define WIN_H 480
