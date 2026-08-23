@@ -24,8 +24,8 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "../common/net_proto.h"
-#include "../games/pong.h"
+#include "common/net_proto.h"
+#include "games/pong.h"
 
 /* IRX-urile astea sunt convertite in .o de catre Makefile (vezi regula bin2o)
  * si linkuite direct in ELF - nu trebuie fisiere separate pe memory card. */
